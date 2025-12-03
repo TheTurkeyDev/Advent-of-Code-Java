@@ -30,9 +30,11 @@ public class Year2025Day03 extends AOCPuzzle
 		if(line.length() == numBatteries)
 			return Long.parseLong(line);
 
+		int numBatOneLess = numBatteries - 1;
+
 		int largestIndex = 0;
 		char largest = '0';
-		for(int i = 0; i < line.length() - (numBatteries - 1); i++)
+		for(int i = 0; i < line.length() - numBatOneLess; i++)
 		{
 			char c = line.charAt(i);
 			if(largest < c)
@@ -43,9 +45,9 @@ public class Year2025Day03 extends AOCPuzzle
 		}
 
 		String lineRemain = line.substring(largestIndex + 1);
-		String joltageStr = String.valueOf(largest);
+		long joltage = largest - '0';
 		if(numBatteries > 1)
-			joltageStr += getJoltage(lineRemain, numBatteries - 1);
-		return Long.parseLong(joltageStr);
+			joltage = (joltage * (long) Math.pow(10, numBatOneLess)) + getJoltage(lineRemain, numBatOneLess);
+		return joltage;
 	}
 }
